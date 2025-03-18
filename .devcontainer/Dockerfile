@@ -17,6 +17,10 @@ RUN apt-get update && apt-get install -y \
     unzip \
     tar \
     htop \
+    qt5-qmake \
+    qtbase5-dev \
+    xvfb \
+    python3-tk \ 
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 # Set Python 3.10 as the default python version
@@ -59,35 +63,3 @@ RUN . ./install.sh
 # download checkpoint
 RUN mkdir /ckpt
 RUN curl -L https://huggingface.co/facebook/VGGSfM/resolve/main/vggsfm_v2_0_0.bin -o /ckpt/vggsfm_v2_0_0.bin
-
-
-# Create and activate a virtual environment
-# RUN python -m venv /opt/venv
-# ENV PATH="/opt/venv/bin:$PATH"
-# RUN echo 'source /opt/venv/bin/activate' >> ~/.bashrc
-
-# pytorch
-# RUN pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
-
-# pytorch3d
-# RUN curl -LO https://github.com/NVIDIA/cub/archive/1.10.0.tar.gz && \
-#     tar xzf 1.10.0.tar.gz && \
-#     rm 1.10.0.tar.gz
-# RUN ls /cub-1.10.0
-# ENV CUB_HOME=/cub-1.10.0
-# RUN pip install iopath fvcore 
-# RUN git clone https://github.com/facebookresearch/pytorch3d.git && cd pytorch3d && git checkout v0.7.7 && FORCE_CUDA=1 pip install -e .
-# Install pytorch3d from pre-build binaries, because I couldn't manage to build from source: https://github.com/facebookresearch/pytorch3d/discussions/1752
-# RUN pip install --extra-index-url https://miropsota.github.io/torch_packages_builder pytorch3d==0.7.7+pt2.0.1cu118
-
-# # Lightplane
-# RUN pip install cogapp triton plotly
-# RUN git clone https://github.com/OliEfr/lightplane.git && cd lightplane && pip install -e .
-
-# # DensePoseCSE
-# RUN pip install git+https://github.com/facebookresearch/detectron2@main#subdirectory=projects/DensePose
-
-# # Others
-# RUN pip install pandas sqlalchemy plotly hydra-core tensorboard lpips opencv-python imageio[ffmpeg] numpy==1.24.3
-
-# RUN pip install triton==2.1.0

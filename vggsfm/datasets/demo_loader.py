@@ -121,11 +121,11 @@ class DemoLoader(Dataset):
             dict: Dictionary containing calibration data for each image.
         """
         reconstruction = pycolmap.Reconstruction(
-            os.path.join(self.SCENE_DIR, "sparse", "0")
+            os.path.join(self.SCENE_DIR, "sparse")
         )
         calib_dict = {}
         for image_id, image in reconstruction.images.items():
-            extrinsic = image.cam_from_world.matrix
+            extrinsic = image.cam_from_world.matrix()
             intrinsic = reconstruction.cameras[
                 image.camera_id
             ].calibration_matrix()
@@ -134,13 +134,20 @@ class DemoLoader(Dataset):
             T = torch.from_numpy(extrinsic[:, 3])
             fl = torch.from_numpy(intrinsic[[0, 1], [0, 1]])
             pp = torch.from_numpy(intrinsic[[0, 1], [2, 2]])
-
-            calib_dict[image.name] = {
+            
+            cam_center = -np.matmul(R.T, T)
+            cam_orientation = R.T @ np.array([0, 0, 1])
+            
+            img_dict =  {
                 "R": R,
                 "T": T,
                 "focal_length": fl,
                 "principal_point": pp,
+                "cam_center": cam_center,
+                "cam_orientation": cam_orientation,
             }
+
+            calib_dict[image.name] = img_dict
         return calib_dict
 
     def __len__(self) -> int:

@@ -38,6 +38,10 @@
             }
         }
     },
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "XAUTHORITY": "${localEnv:XAUTHORITY}"
+    },
     "runArgs": [
         "--interactive",
         "--net=host",

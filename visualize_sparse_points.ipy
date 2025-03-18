@@ -1,0 +1,40 @@
+#%%
+%matplotlib widget
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
+from vggsfm.datasets.demo_loader import DemoLoader
+
+demo_loader_recon = DemoLoader("examples/dog_cop3d_565_81664_160332_custom")
+
+calib_dict = demo_loader_recon._load_calibration_data()
+
+cam_centers = []
+cam_orientations = []
+
+for key in sorted(calib_dict.keys()):
+    calibs = calib_dict[key]
+    
+    cam_centers.append(calibs['cam_center'])
+    cam_orientations.append(calibs['cam_orientation'])
+    
+cam_centers = np.array(cam_centers)
+cam_orientations = np.array(cam_orientations)
+    
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot camera positions
+ax.scatter(cam_centers[:, 0], cam_centers[:, 1], cam_centers[:, 2], 
+            c=range(len(cam_centers)), cmap='viridis', marker='o', label='Cameras')
+
+# Plot camera orientations (viewing direction)
+scale = 0.3  # Scale factor for orientation vectors
+for center, orientation in zip(cam_centers, cam_orientations):
+    ax.quiver(center[0], center[1], center[2],
+                orientation[0], orientation[1], orientation[2],
+                color='red', length=scale, normalize=True)
+
+plt.legend()
+plt.show()
