@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: video_demo.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/video_demo.py",
+            "args": [
+                "shared_camera=True",
+                "make_reproj_video=True",
+                "visual_tracks=True",
+                "SCENE_DIR=examples/dog_cop3d_565_81664_160332_custom"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+python video_demo.py shared_camera=True make_reproj_video=True visual_tracks=True SCENE_DIR=examples/dog_cop3d_565_81664_160332_custom

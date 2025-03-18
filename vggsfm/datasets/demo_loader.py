@@ -222,8 +222,18 @@ class DemoLoader(Dataset):
 
             if self.have_mask:
                 mask_path = image_path.replace(f"/{self.prefix}", "/masks")
-                mask = Image.open(mask_path).convert("L")
-                masks.append(mask)
+                # Check if the file exists regardless of the file extension
+                base_mask_path, ext = os.path.splitext(mask_path)
+                
+                # Do not care about extension of mask file
+                for extension in ['.png', '.jpg', '.jpeg', '.bmp', '.tiff']:
+                    potential_mask_path = base_mask_path + extension
+                    if os.path.exists(potential_mask_path):
+                        mask_path = potential_mask_path
+                        mask = Image.open(mask_path).convert("L")
+                        masks.append(mask)
+                        break
+                    
         return images, masks, image_paths
 
     def _prepare_batch(
