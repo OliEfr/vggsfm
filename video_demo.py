@@ -4,7 +4,8 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-
+import os
+import subprocess
 import torch
 import hydra
 from omegaconf import DictConfig, OmegaConf
@@ -85,6 +86,20 @@ def demo_fn(cfg: DictConfig):
     )
 
     print("Video Demo Finished Successfully")
+    
+    sfm_output_dir = os.path.join(output_dir, "sparse")
+    
+    # Define the command and its arguments
+    command = [
+        'python', 
+        'scripts/read_write_model.py', 
+        '--input_model', 'sfm_output_dir', 
+        '--output_model', 'sfm_output_dir', 
+        '--output_format', '.txt'
+    ]
+
+    # Run the command
+    subprocess.run(command, check=True)
 
     return True
 
