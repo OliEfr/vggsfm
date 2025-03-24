@@ -87,8 +87,8 @@ def demo_fn(cfg: DictConfig):
     command = [
         'python', 
         'scripts/read_write_model.py', 
-        '--input_model', 'sfm_output_dir', 
-        '--output_model', 'sfm_output_dir', 
+        '--input_model', sfm_output_dir, 
+        '--output_model', sfm_output_dir, 
         '--output_format', '.txt'
     ]
 
