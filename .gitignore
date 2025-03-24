@@ -1,4 +1,6 @@
 examples/*
+!examples/download_data.sh
+
 .gradio/
 
 
