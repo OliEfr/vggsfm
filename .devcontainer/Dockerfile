@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     qtbase5-dev \
     xvfb \
     python3-tk \ 
+    imagemagick \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 # Set Python 3.10 as the default python version
@@ -35,23 +36,6 @@ RUN echo 'source /opt/venv/bin/activate' >> ~/.bashrc
 ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-# Download and install Miniconda
-# RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh \
-# && bash miniconda.sh -b -p /opt/miniconda \
-# && rm miniconda.sh
-
-# Add Miniconda to PATH
-# ENV PATH="/opt/miniconda/bin:${PATH}"
-
-# Initialize conda for bash
-# RUN conda init bash \
-#     && . ~/.bashrc
-
-# Update conda and clean up
-# RUN conda update -y conda \
-#     && conda clean -afy
-# Copy the install.sh script into the container
-# Copy the install.sh script into the container
 COPY install.sh .
 
 # Make the script executable (if necessary)
