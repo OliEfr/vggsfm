@@ -72,7 +72,7 @@ class DemoLoader(Dataset):
         bag_name = os.path.basename(os.path.normpath(SCENE_DIR))
         self.have_mask = os.path.exists(os.path.join(SCENE_DIR, "masks"))
         if self.have_mask:
-            print("Loading masks from dataset!")
+            print("Found masks in the dataset.")
 
         img_filenames = glob.glob(os.path.join(SCENE_DIR, f"{self.prefix}/*"))
 
